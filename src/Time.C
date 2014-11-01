@@ -24,7 +24,7 @@ Time::~Time(){
   void set() - set the time to the current time
   ============================================================================*/
 void Time::set(){
-  gettimeofday(&t);
+  gettimeofday(&t,NULL);
 }
 
 
@@ -34,6 +34,15 @@ void Time::set(){
 void Time::get(struct timeval &time){
   time.tv_sec=t.tv_sec;
   time.tv_usec=t.tv_usec;
+}
+
+
+/*=============================================================================
+  void operator=(Time &t) - set the time
+  ============================================================================*/
+void operator=(Time &time){
+  t.tv_sec=time.t.tv_sec;
+  t.tv_usec=time.t.tv_usec;
 }
 
 

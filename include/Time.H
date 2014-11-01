@@ -5,13 +5,15 @@
 #ifndef _TIME_H_
 #define _TIME_H_
 
+#include <sys/time.h>
+
 class Time{
 public:
   Time(); // Constructor sets time to current time
   ~Time(); // Destructor
   void set(); // Set to current time
-  void get(struct timeval &t); // Get the time as a timeval
   double get(); // Get the time as a double
+  void operator=(Time &t); // Copy the time into this object
   int size(); // Get the size of time as written to memory
   void write(unsigned char *d); // Write time to memory
   void read(unsigned char *d); // Read time from memory
