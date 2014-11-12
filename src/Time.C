@@ -8,7 +8,7 @@
   Time() - constructor, set to current time
   ============================================================================*/
 Time::Time(){
-  gettimeofday(&t);
+  gettimeofday(&t,NULL);
 }
 
 
@@ -29,18 +29,31 @@ void Time::set(){
 
 
 /*=============================================================================
-  void get(struct timeval &t) - get the time in a timeval structure
+  void set(struct timeval &t) - set the time from a struct timeval
   ============================================================================*/
-void Time::get(struct timeval &time){
-  time.tv_sec=t.tv_sec;
-  time.tv_usec=t.tv_usec;
+void Time::set(struct timeval &time){
+  t.tv_sec=time.tv_sec;
+  t.tv_usec=time.tv_usec;
+}
+
+
+/*=============================================================================
+  void set(double t) - set the time from a double
+  ============================================================================*/
+void Time::set(double &time){
+  t.tv_sec=(int)time;
+  t.tv_usec=(int)round((time-t.tv_sec)*1000000);
+  if(t.tv_usec==1000000){
+    t.tv_sec++;
+    t.tv_usec=0;
+  }
 }
 
 
 /*=============================================================================
   void operator=(Time &t) - set the time
   ============================================================================*/
-void operator=(Time &time){
+void Time::operator=(Time &time){
   t.tv_sec=time.t.tv_sec;
   t.tv_usec=time.t.tv_usec;
 }
@@ -51,6 +64,15 @@ void operator=(Time &time){
   ============================================================================*/
 double Time::get(){
   return (double)t.tv_sec+(double)t.tv_usec/1000000;
+}
+
+
+/*=============================================================================
+  void get(struct timeval &t) - get the time in a timeval structure
+  ============================================================================*/
+void Time::get(struct timeval &time){
+  time.tv_sec=t.tv_sec;
+  time.tv_usec=t.tv_usec;
 }
 
 
