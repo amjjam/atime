@@ -40,7 +40,7 @@ void Time::set(struct timespec &time){
 /*=============================================================================
   void set(double t) - set the time from a double
   ============================================================================*/
-void Time::set(double &time){
+void Time::set(double time){
   t.tv_sec=(int)time;
   t.tv_nsec=(int)round((time-t.tv_sec)*BILLION);
   if(t.tv_nsec==BILLION){
@@ -68,9 +68,9 @@ double Time::get(){
 
 
 /*=============================================================================
-  void get(struct timeval &t) - get the time in a timeval structure
+  void get(struct timespec &t) - get the time in a timeval structure
   ============================================================================*/
-void Time::get(struct timeval &time){
+void Time::get(struct timespec &time){
   time.tv_sec=t.tv_sec;
   time.tv_nsec=t.tv_nsec;
 }
