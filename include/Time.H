@@ -6,9 +6,11 @@
 #define _TIME_H_
 
 #include <stdlib.h>
-#include <sys/time.h>
+#include <time.h>
 #include <string.h>
 #include <math.h>
+
+#define BILLION 1000000000
 
 class Time{
 public:
@@ -23,8 +25,12 @@ public:
   int size(); // Get the size of time as written to memory
   void write(unsigned char *d); // Write time to memory
   void read(unsigned char *d); // Read time from memory
+  void operator+=(double t); // Add this many seconds
+  void operator+=(Time &t); // Add this time time value
+  void operator-=(double t); // Subtract this many seconds
+  void operator-=(Time &t); // Subtrct this time value
 private:
-  struct timeval t;
+  struct timespec t;
 };
   
 #endif

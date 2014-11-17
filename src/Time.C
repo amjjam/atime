@@ -8,7 +8,7 @@
   Time() - constructor, set to current time
   ============================================================================*/
 Time::Time(){
-  gettimeofday(&t,NULL);
+  clock_gettime(CLOCK_REALTIME,&t);
 }
 
 
@@ -24,16 +24,16 @@ Time::~Time(){
   void set() - set the time to the current time
   ============================================================================*/
 void Time::set(){
-  gettimeofday(&t,NULL);
+  clock_gettime(CLOCK_REALTIME,&t);
 }
 
 
 /*=============================================================================
-  void set(struct timeval &t) - set the time from a struct timeval
+  void set(struct timespec &t) - set the time from a struct timespec
   ============================================================================*/
-void Time::set(struct timeval &time){
+void Time::set(struct timespec &time){
   t.tv_sec=time.tv_sec;
-  t.tv_usec=time.tv_usec;
+  t.tv_nsec=time.tv_nsec;
 }
 
 
@@ -42,10 +42,10 @@ void Time::set(struct timeval &time){
   ============================================================================*/
 void Time::set(double &time){
   t.tv_sec=(int)time;
-  t.tv_usec=(int)round((time-t.tv_sec)*1000000);
-  if(t.tv_usec==1000000){
+  t.tv_nsec=(int)round((time-t.tv_sec)*BILLION);
+  if(t.tv_nsec==BILLION){
     t.tv_sec++;
-    t.tv_usec=0;
+    t.tv_nsec=0;
   }
 }
 
@@ -55,7 +55,7 @@ void Time::set(double &time){
   ============================================================================*/
 void Time::operator=(Time &time){
   t.tv_sec=time.t.tv_sec;
-  t.tv_usec=time.t.tv_usec;
+  t.tv_nsec=time.t.tv_nsec;
 }
 
 
@@ -63,7 +63,7 @@ void Time::operator=(Time &time){
   double get() - get the time as a double, in seconds
   ============================================================================*/
 double Time::get(){
-  return (double)t.tv_sec+(double)t.tv_usec/1000000;
+  return (double)t.tv_sec+(double)t.tv_nsec/BILLION;
 }
 
 
@@ -72,7 +72,7 @@ double Time::get(){
   ============================================================================*/
 void Time::get(struct timeval &time){
   time.tv_sec=t.tv_sec;
-  time.tv_usec=t.tv_usec;
+  time.tv_nsec=t.tv_nsec;
 }
 
 
@@ -91,7 +91,7 @@ void Time::write(unsigned char *d){
   int tmp;
   tmp=t.tv_sec;
   memcpy(d,&tmp,sizeof(int));
-  tmp=t.tv_usec;
+  tmp=t.tv_nsec;
   memcpy(d+sizeof(int),&tmp,sizeof(int));
 }
 
@@ -104,6 +104,46 @@ void Time::read(unsigned char *d){
   memcpy(&tmp,d,sizeof(int));
   t.tv_sec=tmp;
   memcpy(&tmp,d+sizeof(int),sizeof(int));
-  t.tv_usec=tmp;
+  t.tv_nsec=tmp;
 }
 
+
+/*=============================================================================
+  void operator+=(double t) - add the time, in decimal seconds, to this time. 
+
+  The time may be positive or negative
+  ============================================================================*/
+void Time::operator+=(double t){
+  set(get()+t);
+}
+
+
+/*=============================================================================
+  void operator+=(Time &t) - add the time to this time. 
+  
+  Time t - value can only be positive. Negative time not defined. 
+  ============================================================================*/
+void Time::operator+=(Time &t){
+  set(get()+t.get());
+}
+
+
+/*=============================================================================
+  void operator-=(Time &t) - subtract the time, in decimal seconds,
+  from this time.
+  
+  The time can be positive or negative
+  ============================================================================*/
+void Time::operator-=(double t){
+  set(get()-t);
+}
+
+
+/*=============================================================================
+  void operator-=(Time &t) - subtract the time from this time.
+
+  The time to subtract can only be positive
+  ============================================================================*/
+void Time::operator-=(Time &t){
+  set(get()-t.get());
+}
