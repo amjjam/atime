@@ -147,3 +147,12 @@ void Time::operator-=(double t){
 void Time::operator-=(Time &t){
   set(get()-t.get());
 }
+
+
+/*=============================================================================
+  double operator-(Time &t) - subtract the time from this time and
+  return the difference as a double
+  ============================================================================*/
+double Time::operator-(Time &t){
+  return get()-t.get();
+}

@@ -29,6 +29,7 @@ public:
   void operator+=(Time &t); // Add this time time value
   void operator-=(double t); // Subtract this many seconds
   void operator-=(Time &t); // Subtrct this time value
+  double operator-(Time &t); // Return this - t as a double
 private:
   struct timespec t;
 };
