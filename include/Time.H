@@ -10,7 +10,7 @@
 #include <string.h>
 #include <math.h>
 
-#include "../../MessageQueue/include/Buffer.H"
+#include "../../SharedMemory/include/Buffer.H"
 
 #define BILLION 1000000000
 
