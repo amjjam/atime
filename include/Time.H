@@ -28,7 +28,7 @@ public:
   void write(unsigned char *d); // Write time to memory
   void write(Buffer &b); // Write time to a buffer
   void read(unsigned char *d); // Read time from memory
-  void read(Byffer &b); // Read time from a buffer
+  void read(Buffer &b); // Read time from a buffer
   void operator+=(double t); // Add this many seconds
   void operator+=(Time &t); // Add this time time value
   void operator-=(double t); // Subtract this many seconds
