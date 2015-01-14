@@ -51,15 +51,6 @@ void Time::set(double time){
 
 
 /*=============================================================================
-  void operator=(Time &t) - set the time
-  ============================================================================*/
-void Time::operator=(Time &time){
-  t.tv_sec=time.t.tv_sec;
-  t.tv_nsec=time.t.tv_nsec;
-}
-
-
-/*=============================================================================
   double get() - get the time as a double, in seconds
   ============================================================================*/
 double Time::get(){
@@ -97,6 +88,18 @@ void Time::write(unsigned char *d){
 
 
 /*=============================================================================
+  void write(Buffer &b) - write time to a buffer
+  ============================================================================*/
+void Time::write(Buffer &b){
+  int tmp;
+  tmp=t.tv_sec;
+  b.writeInt(tmp);
+  tmp=t.tv_nsec;
+  b.writeInt(tmp);
+}
+
+
+/*=============================================================================
   void read(unsigned char *d) - read time from memory
   ============================================================================*/
 void Time::read(unsigned char *d){
@@ -105,6 +108,43 @@ void Time::read(unsigned char *d){
   t.tv_sec=tmp;
   memcpy(&tmp,d+sizeof(int),sizeof(int));
   t.tv_nsec=tmp;
+}
+
+
+/*=============================================================================
+  void read(Buffer &b) - read time from a buffer
+  ============================================================================*/
+void Time::read(Buffer &b){
+  int tmp;
+  tmp=b.readInt();
+  t.tv_sec=tmp;
+  tmp=b.readInt();
+  t.tv_nsec=tmp;
+}
+
+
+/*=============================================================================
+  void operator=(struct timespec &t) - set time from a timespec structure
+  ============================================================================*/
+void Time::operator=(struct timespec &t){
+  set(t);
+}
+
+
+/*=============================================================================
+  void operator=(double t) - set time from a double
+  ============================================================================*/
+void Time::operator=(double t){
+  set(t);
+}
+
+
+/*=============================================================================
+  void operator=(Time &t) - set the time
+  ============================================================================*/
+void Time::operator=(Time &time){
+  t.tv_sec=time.t.tv_sec;
+  t.tv_nsec=time.t.tv_nsec;
 }
 
 

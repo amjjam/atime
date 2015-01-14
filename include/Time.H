@@ -23,12 +23,14 @@ public:
   void set(double t); // Set the time as a double
   double get(); // Get the time as a double
   void get(struct timespec &t); // Get the time as a struct timeval
-  void operator=(Time &t); // Copy the time into this object
   int size(); // Get the size of time as written to memory
   void write(unsigned char *d); // Write time to memory
   void write(Buffer &b); // Write time to a buffer
   void read(unsigned char *d); // Read time from memory
   void read(Buffer &b); // Read time from a buffer
+  void operator=(struct timespec &t); // Set equal to this time
+  void operator=(double t); // Set equal to this time
+  void operator=(Time &t); // Set equal to this time
   void operator+=(double t); // Add this many seconds
   void operator+=(Time &t); // Add this time time value
   void operator-=(double t); // Subtract this many seconds
