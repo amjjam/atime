@@ -23,6 +23,13 @@ int main(int argc, char *argv[]){
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
 
+  // Notice here that when adding years they are counted from the
+  // start of the Epoch, not from year zero.
+  t+=t;
+  t.get(yr,mo,dy,hr,mn,se,ns);
+  std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
+	    << se << " " << ns << std::endl;
+
   return 0;
 }
 
