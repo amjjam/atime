@@ -64,7 +64,7 @@ void Time::set(int yr, int mo, int dy, int hr, int mn, int se, long ns){
   tm.tm_mon=mo-1;
   tm.tm_year=yr-1900;
   
-  t.tv_sec=mktime(tm);
+  t.tv_sec=mktime(&tm);
   t.tv_nsec=ns;
 }
 
@@ -94,9 +94,9 @@ void Time::get(struct timespec &time){
 void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
   struct tm *tm;
   
-  tm=gmtime(t.tv_sec);
+  tm=gmtime(&t.tv_sec);
   yr=(*tm).tm_year+1900;
-  mo=(*tm).tm_month+1;
+  mo=(*tm).tm_mon+1;
   dy=(*tm).tm_mday;
   hr=(*tm).tm_hour;
   mn=(*tm).tm_min;
@@ -107,58 +107,57 @@ void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
 
 
 /*=============================================================================
+  void get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se) - get
+  the time as year (yr), month (mo), day(dy), hour (hr), minute (mn),
+  second (se), ingoring nanosecond (ns)
+  ============================================================================*/
+void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se){
+  long ns;
+  get(yr,mo,dy,hr,mn,se,ns);
+}
+
+
+/*=============================================================================
+  void get(int &yr, int &mo, int &dy, int &hr, int &mn) - get the time
+  as year (yr), month (mo), day(dy), hour (hr), minute (mn), ignoring
+  second (se), nanosecond (ns)
+  ============================================================================*/
+void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn){
+  int se;
+  long ns;
+  get(yr,mo,dy,hr,mn,se,ns);
+}
+
+
+/*=============================================================================
+  void get(int &yr, int &mo, int &dy, int &hr) - get the time as year
+  (yr), month (mo), day(dy), hour (hr), ignoring minute (mn), second
+  (se), nanosecond (ns)
+  ============================================================================*/
+void Time::get(int &yr, int &mo, int &dy, int &hr){
+  int mn,se;
+  long ns;
+  get(yr,mo,dy,hr,mn,se,ns);
+}
+
+
+/*=============================================================================
+  void get(int &yr, int &mo, int &dy) - get the time as year (yr),
+  month (mo), day(dy), ignoring hour (hr), (mn), second (se),
+  nanosecond (ns)
+  ============================================================================*/
+void Time::get(int &yr, int &mo, int &dy){
+  int hr,mn,se;
+  long ns;
+  get(yr,mo,dy,hr,mn,se,ns);
+}
+
+
+/*=============================================================================
   int size() - get the size of time written to memory
   ============================================================================*/
 int Time::size(){
   return 2*sizeof(int);
-}
-
-
-/*=============================================================================
-  void write(unsigned char *d) - write time to memory
-  ============================================================================*/
-void Time::write(unsigned char *d){
-  int tmp;
-  tmp=t.tv_sec;
-  memcpy(d,&tmp,sizeof(int));
-  tmp=t.tv_nsec;
-  memcpy(d+sizeof(int),&tmp,sizeof(int));
-}
-
-
-/*=============================================================================
-  void write(Buffer &b) - write time to a buffer
-  ============================================================================*/
-void Time::write(Buffer &b){
-  int tmp;
-  tmp=t.tv_sec;
-  b.writeInt(tmp);
-  tmp=t.tv_nsec;
-  b.writeInt(tmp);
-}
-
-
-/*=============================================================================
-  void read(unsigned char *d) - read time from memory
-  ============================================================================*/
-void Time::read(unsigned char *d){
-  int tmp;
-  memcpy(&tmp,d,sizeof(int));
-  t.tv_sec=tmp;
-  memcpy(&tmp,d+sizeof(int),sizeof(int));
-  t.tv_nsec=tmp;
-}
-
-
-/*=============================================================================
-  void read(Buffer &b) - read time from a buffer
-  ============================================================================*/
-void Time::read(Buffer &b){
-  int tmp;
-  tmp=b.readInt();
-  t.tv_sec=tmp;
-  tmp=b.readInt();
-  t.tv_nsec=tmp;
 }
 
 
