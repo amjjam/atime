@@ -1,5 +1,5 @@
 /******************************************************************************
- * This is class Time which implements a time with microsecond resolution     *
+ * This is class Time which implements a time with nanosecond resolution      *
  ******************************************************************************/
 
 #include "../include/Time.H"
@@ -51,6 +51,25 @@ void Time::set(double time){
 
 
 /*=============================================================================
+  void set(int yr, int mo, int dy, int hr=0, int mn=0, int se=0, long
+  ns=0) - set the time as year (yr), month (mo), day (dy), hour (hr),
+  minute (mn), second (se), and nanosecond (ns)
+  ============================================================================*/
+void Time::set(int yr, int mo, int dy, int hr, int mn, int se, long ns){
+  struct tm tm;
+  tm.tm_sec=se;
+  tm.tm_min=mn;
+  tm.tm_hour=hr;
+  tm.tm_mday=dy;
+  tm.tm_mon=mo-1;
+  tm.tm_year=yr-1900;
+  
+  t.tv_sec=mktime(tm);
+  t.tv_nsec=ns;
+}
+
+
+/*=============================================================================
   double get() - get the time as a double, in seconds
   ============================================================================*/
 double Time::get(){
@@ -64,6 +83,26 @@ double Time::get(){
 void Time::get(struct timespec &time){
   time.tv_sec=t.tv_sec;
   time.tv_nsec=t.tv_nsec;
+}
+
+
+/*=============================================================================
+  void get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long
+  &ns) - get the time as year (yr), month (mo), day(dy), hour (hr),
+  minute (mn), second (se), nanosecond (ns)
+  ============================================================================*/
+void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
+  struct tm *tm;
+  
+  tm=gmtime(t.tv_sec);
+  yr=(*tm).tm_year+1900;
+  mo=(*tm).tm_month+1;
+  dy=(*tm).tm_mday;
+  hr=(*tm).tm_hour;
+  mn=(*tm).tm_min;
+  se=(*tm).tm_sec;
+  
+  ns=t.tv_nsec;
 }
 
 

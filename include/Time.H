@@ -21,8 +21,10 @@ public:
   void set(); // Set to current time
   void set(struct timespec &t); // Set the time as a struct timeval
   void set(double t); // Set the time as a double
+  void set(int yr, int mo, int dy, int hr=0, int mn=0, int se=0, long ns=0); 
   double get(); // Get the time as a double
   void get(struct timespec &t); // Get the time as a struct timeval
+  void get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns);
   int size(); // Get the size of time as written to memory
   void write(unsigned char *d); // Write time to memory
   void write(Buffer &b); // Write time to a buffer
