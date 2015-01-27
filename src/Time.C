@@ -64,7 +64,7 @@ void Time::set(int yr, int mo, int dy, int hr, int mn, int se, long ns){
   tm.tm_mon=mo-1;
   tm.tm_year=yr-1900;
   
-  t.tv_sec=mktime(&tm);
+  t.tv_sec=timegm(&tm);
   t.tv_nsec=ns;
 }
 

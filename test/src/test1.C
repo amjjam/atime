@@ -12,6 +12,12 @@ int main(int argc, char *argv[]){
   int yr,mo,dy,hr,mn,se;
   long ns;
 
+  t.set(1970,1,1,1);
+  t.get(yr,mo,dy,hr,mn,se,ns);
+  std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
+	    << se << " " << ns << std::endl;
+  std::cout << t.get() << std::endl;
+
   t.set(1997,1,10,3,4);
   t.get(yr,mo,dy,hr,mn,se,ns);
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
