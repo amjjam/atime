@@ -234,3 +234,68 @@ void Time::operator-=(Time &t){
 double Time::operator-(Time &t){
   return get()-t.get();
 }
+
+
+/*============================================================================
+  bool operator==(Time &t) - return true if this time equals t. False
+  otherwise
+  ===========================================================================*/
+bool Time::operator==(Time &tt){
+  if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec==tt.t.tv_nsec)
+    return true;
+  return false;
+}
+
+
+/*===========================================================================
+  bool operator>(Time &t) - return true if this time is later than
+  t. False otherwise.
+  ==========================================================================*/
+bool Time::operator>(Time &tt){
+  if(t.tv_sec>tt.t.tv_sec)
+    return true;
+  if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>tt.t.tv_nsec)
+    return true;
+  return false;
+}
+
+
+/*===========================================================================
+  bool operator>=(Time &t) - return true if this time later than of
+  equal to t. Return false otherwise.
+  ==========================================================================*/
+bool Time::operator>=(Time &tt){
+  if(t.tv_sec>tt.t.tv_sec)
+    return true;
+  if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>=tt.t.tv_nsec)
+    return true;
+  return false;
+}
+
+
+/*==========================================================================
+  bool operator<(Time &t) - return true if this time is earlier than
+  t. Return false otherwise.
+  =========================================================================*/
+bool Time::operator<(Time &tt){
+  if(t.tv_sec<tt.t.tv_sec)
+    return true;
+  if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<tt.t.tv_nsec)
+    return true;
+  return false;
+}
+
+
+/*==========================================================================
+  bool operator<=(Time &t) - return true if this time is earlier than
+  or same time as t. Return false otherwise.
+  =========================================================================*/
+bool Time::operator<=(Time &tt){
+  if(t.tv_sec<tt.t.tv_sec)
+    return true;
+  if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<=tt.t.tv_nsec)
+    return true;
+  return false;
+}
+
+

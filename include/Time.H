@@ -36,6 +36,11 @@ public:
   void operator-=(double t); // Subtract this many seconds
   void operator-=(Time &t); // Subtrct this time value
   double operator-(Time &t); // Return this - t as a double
+  bool operator==(Time &t); // Return true if this is same time as t
+  bool operator>(Time &t); // Return true of this is later than t;
+  bool operator>=(Time &t); // Return true if this is later or equal to t
+  bool operator<(Time &t); // Return true if this is earlier than t
+  bool operator<=(Time &t); // Return true if this is earlier or equal to t
 private:
   struct timespec t;
 };
