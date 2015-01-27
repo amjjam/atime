@@ -3,11 +3,11 @@
  ******************************************************************************/
 
 #include <iostream>
-#include "../../include/Time.H"
+#include "../../include/aTime.H"
 
 int main(int argc, char *argv[]){
   
-  Time t;
+  aTime t;
 
   int yr,mo,dy,hr,mn,se;
   long ns;

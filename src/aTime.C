@@ -2,20 +2,20 @@
  * This is class Time which implements a time with nanosecond resolution      *
  ******************************************************************************/
 
-#include "../include/Time.H"
+#include "../include/aTime.H"
 
 /*=============================================================================
-  Time() - constructor, set to current time
+  aTime() - constructor, set to current time
   ============================================================================*/
-Time::Time(){
+aTime::aTime(){
   clock_gettime(CLOCK_REALTIME,&t);
 }
 
 
 /*=============================================================================
-  ~Time() - destructor
+  ~aTime() - destructor
   ============================================================================*/
-Time::~Time(){
+aTime::~aTime(){
 
 }
 
@@ -23,7 +23,7 @@ Time::~Time(){
 /*=============================================================================
   void set() - set the time to the current time
   ============================================================================*/
-void Time::set(){
+void aTime::set(){
   clock_gettime(CLOCK_REALTIME,&t);
 }
 
@@ -31,7 +31,7 @@ void Time::set(){
 /*=============================================================================
   void set(struct timespec &t) - set the time from a struct timespec
   ============================================================================*/
-void Time::set(struct timespec &time){
+void aTime::set(struct timespec &time){
   t.tv_sec=time.tv_sec;
   t.tv_nsec=time.tv_nsec;
 }
@@ -40,7 +40,7 @@ void Time::set(struct timespec &time){
 /*=============================================================================
   void set(double t) - set the time from a double
   ============================================================================*/
-void Time::set(double time){
+void aTime::set(double time){
   t.tv_sec=(int)time;
   t.tv_nsec=(int)round((time-t.tv_sec)*BILLION);
   if(t.tv_nsec==BILLION){
@@ -55,7 +55,7 @@ void Time::set(double time){
   ns=0) - set the time as year (yr), month (mo), day (dy), hour (hr),
   minute (mn), second (se), and nanosecond (ns)
   ============================================================================*/
-void Time::set(int yr, int mo, int dy, int hr, int mn, int se, long ns){
+void aTime::set(int yr, int mo, int dy, int hr, int mn, int se, long ns){
   struct tm tm;
   tm.tm_sec=se;
   tm.tm_min=mn;
@@ -72,7 +72,7 @@ void Time::set(int yr, int mo, int dy, int hr, int mn, int se, long ns){
 /*=============================================================================
   double get() - get the time as a double, in seconds
   ============================================================================*/
-double Time::get(){
+double aTime::get(){
   return (double)t.tv_sec+(double)t.tv_nsec/BILLION;
 }
 
@@ -80,7 +80,7 @@ double Time::get(){
 /*=============================================================================
   void get(struct timespec &t) - get the time in a timeval structure
   ============================================================================*/
-void Time::get(struct timespec &time){
+void aTime::get(struct timespec &time){
   time.tv_sec=t.tv_sec;
   time.tv_nsec=t.tv_nsec;
 }
@@ -91,7 +91,7 @@ void Time::get(struct timespec &time){
   &ns) - get the time as year (yr), month (mo), day(dy), hour (hr),
   minute (mn), second (se), nanosecond (ns)
   ============================================================================*/
-void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
+void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
   struct tm *tm;
   
   tm=gmtime(&t.tv_sec);
@@ -111,7 +111,7 @@ void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
   the time as year (yr), month (mo), day(dy), hour (hr), minute (mn),
   second (se), ingoring nanosecond (ns)
   ============================================================================*/
-void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se){
+void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se){
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
 }
@@ -122,7 +122,7 @@ void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se){
   as year (yr), month (mo), day(dy), hour (hr), minute (mn), ignoring
   second (se), nanosecond (ns)
   ============================================================================*/
-void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn){
+void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn){
   int se;
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
@@ -134,7 +134,7 @@ void Time::get(int &yr, int &mo, int &dy, int &hr, int &mn){
   (yr), month (mo), day(dy), hour (hr), ignoring minute (mn), second
   (se), nanosecond (ns)
   ============================================================================*/
-void Time::get(int &yr, int &mo, int &dy, int &hr){
+void aTime::get(int &yr, int &mo, int &dy, int &hr){
   int mn,se;
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
@@ -146,7 +146,7 @@ void Time::get(int &yr, int &mo, int &dy, int &hr){
   month (mo), day(dy), ignoring hour (hr), (mn), second (se),
   nanosecond (ns)
   ============================================================================*/
-void Time::get(int &yr, int &mo, int &dy){
+void aTime::get(int &yr, int &mo, int &dy){
   int hr,mn,se;
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
@@ -156,7 +156,7 @@ void Time::get(int &yr, int &mo, int &dy){
 /*=============================================================================
   int size() - get the size of time written to memory
   ============================================================================*/
-int Time::size(){
+int aTime::size(){
   return 2*sizeof(int);
 }
 
@@ -164,7 +164,7 @@ int Time::size(){
 /*=============================================================================
   void operator=(struct timespec &t) - set time from a timespec structure
   ============================================================================*/
-void Time::operator=(struct timespec &t){
+void aTime::operator=(struct timespec &t){
   set(t);
 }
 
@@ -172,15 +172,15 @@ void Time::operator=(struct timespec &t){
 /*=============================================================================
   void operator=(double t) - set time from a double
   ============================================================================*/
-void Time::operator=(double t){
+void aTime::operator=(double t){
   set(t);
 }
 
 
 /*=============================================================================
-  void operator=(Time &t) - set the time
+  void operator=(aTime &t) - set the time
   ============================================================================*/
-void Time::operator=(Time &time){
+void aTime::operator=(aTime &time){
   t.tv_sec=time.t.tv_sec;
   t.tv_nsec=time.t.tv_nsec;
 }
@@ -191,56 +191,56 @@ void Time::operator=(Time &time){
 
   The time may be positive or negative
   ============================================================================*/
-void Time::operator+=(double t){
+void aTime::operator+=(double t){
   set(get()+t);
 }
 
 
 /*=============================================================================
-  void operator+=(Time &t) - add the time to this time. 
+  void operator+=(aTime &t) - add the time to this time. 
   
-  Time t - value can only be positive. Negative time not defined. 
+  aTime t - value can only be positive. Negative time not defined. 
   ============================================================================*/
-void Time::operator+=(Time &t){
+void aTime::operator+=(aTime &t){
   set(get()+t.get());
 }
 
 
 /*=============================================================================
-  void operator-=(Time &t) - subtract the time, in decimal seconds,
+  void operator-=(double t) - subtract the time, in decimal seconds,
   from this time.
   
   The time can be positive or negative
   ============================================================================*/
-void Time::operator-=(double t){
+void aTime::operator-=(double t){
   set(get()-t);
 }
 
 
 /*=============================================================================
-  void operator-=(Time &t) - subtract the time from this time.
+  void operator-=(aTime &t) - subtract the time from this time.
 
   The time to subtract can only be positive
   ============================================================================*/
-void Time::operator-=(Time &t){
+void aTime::operator-=(aTime &t){
   set(get()-t.get());
 }
 
 
 /*=============================================================================
-  double operator-(Time &t) - subtract the time from this time and
+  double operator-(aTime &t) - subtract the time from this time and
   return the difference as a double
   ============================================================================*/
-double Time::operator-(Time &t){
+double aTime::operator-(aTime &t){
   return get()-t.get();
 }
 
 
 /*============================================================================
-  bool operator==(Time &t) - return true if this time equals t. False
+  bool operator==(aTime &t) - return true if this time equals t. False
   otherwise
   ===========================================================================*/
-bool Time::operator==(Time &tt){
+bool aTime::operator==(aTime &tt){
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec==tt.t.tv_nsec)
     return true;
   return false;
@@ -248,10 +248,10 @@ bool Time::operator==(Time &tt){
 
 
 /*===========================================================================
-  bool operator>(Time &t) - return true if this time is later than
+  bool operator>(aTime &t) - return true if this time is later than
   t. False otherwise.
   ==========================================================================*/
-bool Time::operator>(Time &tt){
+bool aTime::operator>(aTime &tt){
   if(t.tv_sec>tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>tt.t.tv_nsec)
@@ -261,10 +261,10 @@ bool Time::operator>(Time &tt){
 
 
 /*===========================================================================
-  bool operator>=(Time &t) - return true if this time later than of
+  bool operator>=(aTime &t) - return true if this time later than of
   equal to t. Return false otherwise.
   ==========================================================================*/
-bool Time::operator>=(Time &tt){
+bool aTime::operator>=(aTime &tt){
   if(t.tv_sec>tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>=tt.t.tv_nsec)
@@ -274,10 +274,10 @@ bool Time::operator>=(Time &tt){
 
 
 /*==========================================================================
-  bool operator<(Time &t) - return true if this time is earlier than
+  bool operator<(aTime &t) - return true if this time is earlier than
   t. Return false otherwise.
   =========================================================================*/
-bool Time::operator<(Time &tt){
+bool aTime::operator<(aTime &tt){
   if(t.tv_sec<tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<tt.t.tv_nsec)
@@ -287,10 +287,10 @@ bool Time::operator<(Time &tt){
 
 
 /*==========================================================================
-  bool operator<=(Time &t) - return true if this time is earlier than
+  bool operator<=(aTime &t) - return true if this time is earlier than
   or same time as t. Return false otherwise.
   =========================================================================*/
-bool Time::operator<=(Time &tt){
+bool aTime::operator<=(aTime &tt){
   if(t.tv_sec<tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<=tt.t.tv_nsec)
