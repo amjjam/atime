@@ -28,6 +28,7 @@ public:
   void get(int &yr, int &mo, int &dy, int &hr);
   void get(int &yr, int &mo, int &dy);
   int size(); // Get the size of time as written to memory
+  double secOfDay(); // Returns seconds of the curent day
   void operator=(struct timespec &t); // Set equal to this time
   void operator=(double t); // Set equal to this time
   void operator=(aTime &t); // Set equal to this time

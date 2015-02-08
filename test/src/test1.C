@@ -22,19 +22,23 @@ int main(int argc, char *argv[]){
   t.get(yr,mo,dy,hr,mn,se,ns);
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
+  std::cout << t.secOfDay() << std::endl;
 
   t+=100000.0003;
 
   t.get(yr,mo,dy,hr,mn,se,ns);
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
+  std::cout << t.secOfDay() << std::endl;
 
   // Notice here that when adding years they are counted from the
   // start of the Epoch, not from year zero.
   t+=t;
+  t+=0.1;
   t.get(yr,mo,dy,hr,mn,se,ns);
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
+  std::cout << t.secOfDay() << std::endl;
 
   return 0;
 }

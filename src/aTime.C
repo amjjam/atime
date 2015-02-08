@@ -162,6 +162,19 @@ int aTime::size(){
 
 
 /*=============================================================================
+  double secOfDay() - returns seconds of the current
+  day. I.e. hour*3600+minute*60+seconds+ns/1e9
+  =============================================================================*/
+double aTime::secOfDay(){
+  int yr,mo,dy,hr,mn,se;
+  long ns;
+  get(yr,mo,dy,hr,mn,se,ns);
+
+  return (double)hr*3600+(double)mn*60+(double)se+((double)ns)/BILLION;
+}
+
+
+/*=============================================================================
   void operator=(struct timespec &t) - set time from a timespec structure
   ============================================================================*/
 void aTime::operator=(struct timespec &t){
