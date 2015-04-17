@@ -162,6 +162,30 @@ int aTime::size(){
 
 
 /*=============================================================================
+  void write(unsigned char *d) - write the time to a memory area
+  ============================================================================*/
+void aTime::write(unsigned char *d){
+  int tmp;
+  tmp=t.tv_sec;
+  memcpy(d,&tmp,sizeof(int));
+  tmp=t.tv_nsec;
+  memcpy(d+sizeof(int),&tmp,sizeof(int));
+}
+
+
+/*=============================================================================
+  void read(unsigned char *d) - read the time from a memory area
+  ============================================================================*/
+void aTime::read(unsigned char *d){
+  int tmp;
+  memcpy(&tmp,d,sizeof(int));
+  t.tv_sec=tmp;
+  memcpy(&tmp,d+sizeof(int),sizeof(int));
+  t.tv_nsec=tmp;
+}
+
+
+/*=============================================================================
   double secOfDay() - returns seconds of the current
   day. I.e. hour*3600+minute*60+seconds+ns/1e9
   =============================================================================*/
