@@ -14,7 +14,9 @@ libaTime.a: $(ATIME_OBJ)
 libaTime.so: $(ATIME_OBJ)
 	$(CPP) -shared -Wl,-soname,$@ -o $@ $^
 
-install: build
+install: $(libdir)/libaTime.a $(libdir)/libaTime.so
+
+$(libdir)/libaTime.a $(libdir)/libaTime.so: libaTime.a libaTime.so
 	cp libaTime.a libaTime.so $(libdir)
 
 uninstall:
