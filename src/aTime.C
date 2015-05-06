@@ -154,12 +154,24 @@ void aTime::get(int &yr, int &mo, int &dy){
 
 
 /*=============================================================================
-  int size() - get the size of time written to memory
+  int size() - get the size of time written to memory, writen in the
+  standard version. The standard version is two integers, seconds of
+  unix time and nanoseconds of the second.
   ============================================================================*/
 int aTime::size(){
   return 2*sizeof(int);
 }
 
+
+/*=============================================================================
+  int size2() - get the size of the time written to memory, written in
+  version 2. Version 2 is as follows: unsigned short int (2 bytes) of
+  year, unsigned char (1 byte) of month, unsigned char (1 byte) of
+  day, double (8 bytes) seconds of day.
+  ============================================================================*/
+int aTime::size2(){
+  return sizeof(unsigned short)+2*sizeof(unsigned char)+sizeof(double);
+}
 
 /*=============================================================================
   void write(unsigned char *d) - write the time to a memory area
@@ -174,6 +186,27 @@ void aTime::write(unsigned char *d){
 
 
 /*=============================================================================
+  void write2(unsigned char *d) - write the time as version 2 to a memory area
+  ============================================================================*/
+void aTime::write2(unsigned char *d){
+  int xyr,xmo,xdy;
+  unsigned short yr;
+  unsigned char mo,dy;
+  double se;
+  get(xyr,xmo,xdy);
+  se=secOfDay();
+  yr=xyr;
+  mo=xmo;
+  dy=xdy;
+  memcpy(d,&yr,sizeof(unsigned short));
+  memcpy(d+sizeof(unsigned short),&mo,sizeof(unsigned char));
+  memcpy(d+sizeof(unsigned short)+sizeof(unsigned char),&dy,
+	 sizeof(unsigned char));
+  memcpy(d+sizeof(unsigned short)+2*sizeof(unsigned char),&se,sizeof(double));
+}
+
+
+/*=============================================================================
   void read(unsigned char *d) - read the time from a memory area
   ============================================================================*/
 void aTime::read(unsigned char *d){
@@ -182,6 +215,27 @@ void aTime::read(unsigned char *d){
   t.tv_sec=tmp;
   memcpy(&tmp,d+sizeof(int),sizeof(int));
   t.tv_nsec=tmp;
+}
+
+
+/*=============================================================================
+  void read2(unsigned char *d) - read the time as version 2 from a memory area
+  ============================================================================*/
+void aTime::read2(unsigned char *d){
+  int xyr,xmo,xdy;
+  unsigned short yr;
+  unsigned char mo,dy;
+  double se;
+  memcpy(&yr,d,sizeof(unsigned short));
+  memcpy(&mo,d+sizeof(unsigned short),sizeof(unsigned char));
+  memcpy(&dy,d+sizeof(unsigned short)+sizeof(unsigned char),
+	 sizeof(unsigned char));
+  memcpy(&se,d+sizeof(unsigned short)+2*sizeof(unsigned char),sizeof(double));
+  xyr=yr;
+  xmo=mo;
+  xdy=dy;
+  set(xyr,xmo,xdy);
+  operator+=(se);
 }
 
 

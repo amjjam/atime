@@ -28,8 +28,11 @@ public:
   void get(int &yr, int &mo, int &dy, int &hr);
   void get(int &yr, int &mo, int &dy);
   int size(); // Get the size of time as written to memory
+  int size2(); // Get the size as written to memory, version 2
   void write(unsigned char *d); // Write time to memory area
+  void write2(unsigned char *d); // Write to memory, version 2
   void read(unsigned char *d); // Read time from memory area
+  void read2(unsigned char *d); // Read from memory, version2
   double secOfDay(); // Returns seconds of the curent day
   void operator=(struct timespec &t); // Set equal to this time
   void operator=(double t); // Set equal to this time
