@@ -17,12 +17,14 @@ int main(int argc, char *argv[]){
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
   std::cout << t.get() << std::endl;
+  std::cout << t.printHMS() << std::endl;
 
   t.set(1997,1,10,3,4);
   t.get(yr,mo,dy,hr,mn,se,ns);
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
   std::cout << t.secOfDay() << std::endl;
+  std::cout << t.printHMS() << std::endl;
 
   t+=100000.0003;
 
@@ -30,6 +32,7 @@ int main(int argc, char *argv[]){
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
   std::cout << t.secOfDay() << std::endl;
+  std::cout << t.printHMS() << std::endl;
 
   // Notice here that when adding years they are counted from the
   // start of the Epoch, not from year zero.
@@ -39,6 +42,7 @@ int main(int argc, char *argv[]){
   std::cout << yr << "/" << mo << "/" << dy << " " << hr << ":" << mn << ":"
 	    << se << " " << ns << std::endl;
   std::cout << t.secOfDay() << std::endl;
+  std::cout << t.printHMS() << std::endl;
 
   return 0;
 }

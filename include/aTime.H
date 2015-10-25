@@ -5,6 +5,7 @@
 #ifndef _ATIME_H_
 #define _ATIME_H_
 
+#include <string>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
@@ -47,6 +48,7 @@ public:
   bool operator>=(aTime &t); // Return true if this is later or equal to t
   bool operator<(aTime &t); // Return true if this is earlier than t
   bool operator<=(aTime &t); // Return true if this is earlier or equal to t
+  std::string printHMS(); // Print time in HH:MM:SS format ignoring nanoseconds
 private:
   struct timespec t;
 };

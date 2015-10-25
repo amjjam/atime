@@ -390,3 +390,29 @@ bool aTime::operator<=(aTime &tt){
 }
 
 
+/*==========================================================================
+  std::string printHMS() - return a string with just the time of day
+  printed as HH:MM:SS.
+  =========================================================================*/
+std::string aTime::printHMS(){
+  int yr,mo,dy,hr,mn,se;
+  get(yr,mo,dy,hr,mn,se);
+    
+  std::string t;
+  for(int i=0;i<3;i++){
+    int j;
+    if(i==0)
+      j=hr;
+    else if(i==1)
+      j=mn;
+    else if(i==2)
+      j=se;
+    
+    int tmp=j/10;
+    t+=(char)('0'+tmp);
+    t+=(char)('0'+(j-tmp*10));
+    if(i<2)
+      t+=':';
+  }
+  return t;
+}
