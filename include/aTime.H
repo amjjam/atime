@@ -18,7 +18,7 @@ public:
   aTime(); // Constructor sets time to current time
   ~aTime(); // Destructor
   void set(); // Set to current time
-  void set(struct timespec &t); // Set the time as a struct timeval
+  void set(const struct timespec &t); // Set the time as a struct timeval
   void set(double t); // Set the time as a double
   void set(int yr, int mo, int dy, int hr=0, int mn=0, int se=0, long ns=0); 
   double get(); // Get the time as a double
@@ -35,9 +35,9 @@ public:
   void read(unsigned char *d); // Read time from memory area
   void read2(unsigned char *d); // Read from memory, version2
   double secOfDay(); // Returns seconds of the curent day
-  void operator=(struct timespec &t); // Set equal to this time
+  void operator=(const struct timespec &t); // Set equal to this time
   void operator=(double t); // Set equal to this time
-  void operator=(aTime &t); // Set equal to this time
+  void operator=(const aTime &t); // Set equal to this time
   void operator+=(double t); // Add this many seconds
   void operator+=(aTime &t); // Add this time time value
   void operator-=(double t); // Subtract this many seconds

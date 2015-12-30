@@ -29,9 +29,9 @@ void aTime::set(){
 
 
 /*=============================================================================
-  void set(struct timespec &t) - set the time from a struct timespec
+  void set(const struct timespec &t) - set the time from a struct timespec
   ============================================================================*/
-void aTime::set(struct timespec &time){
+void aTime::set(const struct timespec &time){
   t.tv_sec=time.tv_sec;
   t.tv_nsec=time.tv_nsec;
 }
@@ -253,9 +253,9 @@ double aTime::secOfDay(){
 
 
 /*=============================================================================
-  void operator=(struct timespec &t) - set time from a timespec structure
+  void operator=(const struct timespec &t) - set time from a timespec structure
   ============================================================================*/
-void aTime::operator=(struct timespec &t){
+void aTime::operator=(const struct timespec &t){
   set(t);
 }
 
@@ -269,9 +269,9 @@ void aTime::operator=(double t){
 
 
 /*=============================================================================
-  void operator=(aTime &t) - set the time
+  void operator=(const aTime &t) - set the time
   ============================================================================*/
-void aTime::operator=(aTime &time){
+void aTime::operator=(const aTime &time){
   t.tv_sec=time.t.tv_sec;
   t.tv_nsec=time.t.tv_nsec;
 }
