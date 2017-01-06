@@ -72,7 +72,7 @@ void aTime::set(int yr, int mo, int dy, int hr, int mn, int se, long ns){
 /*=============================================================================
   double get() - get the time as a double, in seconds
   ============================================================================*/
-double aTime::get(){
+double aTime::get() const{
   return (double)t.tv_sec+(double)t.tv_nsec/BILLION;
 }
 
@@ -80,7 +80,7 @@ double aTime::get(){
 /*=============================================================================
   void get(struct timespec &t) - get the time in a timeval structure
   ============================================================================*/
-void aTime::get(struct timespec &time){
+void aTime::get(struct timespec &time) const{
   time.tv_sec=t.tv_sec;
   time.tv_nsec=t.tv_nsec;
 }
@@ -91,7 +91,7 @@ void aTime::get(struct timespec &time){
   &ns) - get the time as year (yr), month (mo), day(dy), hour (hr),
   minute (mn), second (se), nanosecond (ns)
   ============================================================================*/
-void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
+void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns) const{
   struct tm *tm;
   
   tm=gmtime(&t.tv_sec);
@@ -111,7 +111,7 @@ void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se, long &ns){
   the time as year (yr), month (mo), day(dy), hour (hr), minute (mn),
   second (se), ingoring nanosecond (ns)
   ============================================================================*/
-void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se){
+void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se) const{
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
 }
@@ -122,7 +122,7 @@ void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn, int &se){
   as year (yr), month (mo), day(dy), hour (hr), minute (mn), ignoring
   second (se), nanosecond (ns)
   ============================================================================*/
-void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn){
+void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn) const{
   int se;
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
@@ -134,7 +134,7 @@ void aTime::get(int &yr, int &mo, int &dy, int &hr, int &mn){
   (yr), month (mo), day(dy), hour (hr), ignoring minute (mn), second
   (se), nanosecond (ns)
   ============================================================================*/
-void aTime::get(int &yr, int &mo, int &dy, int &hr){
+void aTime::get(int &yr, int &mo, int &dy, int &hr) const{
   int mn,se;
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
@@ -146,7 +146,7 @@ void aTime::get(int &yr, int &mo, int &dy, int &hr){
   month (mo), day(dy), ignoring hour (hr), (mn), second (se),
   nanosecond (ns)
   ============================================================================*/
-void aTime::get(int &yr, int &mo, int &dy){
+void aTime::get(int &yr, int &mo, int &dy) const{
   int hr,mn,se;
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
@@ -158,7 +158,7 @@ void aTime::get(int &yr, int &mo, int &dy){
   standard version. The standard version is two integers, seconds of
   unix time and nanoseconds of the second.
   ============================================================================*/
-int aTime::size(){
+int aTime::size() const{
   return 2*sizeof(int);
 }
 
@@ -169,14 +169,14 @@ int aTime::size(){
   year, unsigned char (1 byte) of month, unsigned char (1 byte) of
   day, double (8 bytes) seconds of day.
   ============================================================================*/
-int aTime::size2(){
+int aTime::size2() const{
   return sizeof(unsigned short)+2*sizeof(unsigned char)+sizeof(double);
 }
 
 /*=============================================================================
   void write(unsigned char *d) - write the time to a memory area
   ============================================================================*/
-void aTime::write(unsigned char *d){
+void aTime::write(unsigned char *d) const{
   int tmp;
   tmp=t.tv_sec;
   memcpy(d,&tmp,sizeof(int));
@@ -188,7 +188,7 @@ void aTime::write(unsigned char *d){
 /*=============================================================================
   void write2(unsigned char *d) - write the time as version 2 to a memory area
   ============================================================================*/
-void aTime::write2(unsigned char *d){
+void aTime::write2(unsigned char *d) const{
   int xyr,xmo,xdy;
   unsigned short yr;
   unsigned char mo,dy;
@@ -242,8 +242,8 @@ void aTime::read2(unsigned char *d){
 /*=============================================================================
   double secOfDay() - returns seconds of the current
   day. I.e. hour*3600+minute*60+seconds+ns/1e9
-  =============================================================================*/
-double aTime::secOfDay(){
+  ============================================================================*/
+double aTime::secOfDay() const{
   int yr,mo,dy,hr,mn,se;
   long ns;
   get(yr,mo,dy,hr,mn,se,ns);
@@ -331,7 +331,7 @@ double aTime::operator-(aTime &t){
   bool operator==(aTime &t) - return true if this time equals t. False
   otherwise
   ===========================================================================*/
-bool aTime::operator==(aTime &tt){
+bool aTime::operator==(aTime &tt) const{
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec==tt.t.tv_nsec)
     return true;
   return false;
@@ -342,7 +342,7 @@ bool aTime::operator==(aTime &tt){
   bool operator>(aTime &t) - return true if this time is later than
   t. False otherwise.
   ==========================================================================*/
-bool aTime::operator>(aTime &tt){
+bool aTime::operator>(aTime &tt) const{
   if(t.tv_sec>tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>tt.t.tv_nsec)
@@ -355,7 +355,7 @@ bool aTime::operator>(aTime &tt){
   bool operator>=(aTime &t) - return true if this time later than of
   equal to t. Return false otherwise.
   ==========================================================================*/
-bool aTime::operator>=(aTime &tt){
+bool aTime::operator>=(aTime &tt) const{
   if(t.tv_sec>tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>=tt.t.tv_nsec)
@@ -368,7 +368,7 @@ bool aTime::operator>=(aTime &tt){
   bool operator<(aTime &t) - return true if this time is earlier than
   t. Return false otherwise.
   =========================================================================*/
-bool aTime::operator<(aTime &tt){
+bool aTime::operator<(aTime &tt) const{
   if(t.tv_sec<tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<tt.t.tv_nsec)
@@ -381,7 +381,7 @@ bool aTime::operator<(aTime &tt){
   bool operator<=(aTime &t) - return true if this time is earlier than
   or same time as t. Return false otherwise.
   =========================================================================*/
-bool aTime::operator<=(aTime &tt){
+bool aTime::operator<=(aTime &tt) const{
   if(t.tv_sec<tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<=tt.t.tv_nsec)
@@ -394,7 +394,7 @@ bool aTime::operator<=(aTime &tt){
   std::string printHMS() - return a string with just the time of day
   printed as HH:MM:SS.
   =========================================================================*/
-std::string aTime::printHMS(){
+std::string aTime::printHMS() const{
   int yr,mo,dy,hr,mn,se;
   get(yr,mo,dy,hr,mn,se);
     
