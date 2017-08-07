@@ -48,6 +48,8 @@ public:
   bool operator>=(const aTime &t) const; // Return true if this is later or equal to t
   bool operator<(const aTime &t) const; // Return true if this is earlier than t
   bool operator<=(const aTime &t) const; // Return true if this is earlier or equal to t
+  aTime operator+(const double t) const; // Return this + t in new object
+  aTime operator-(const double t) const; // Return this - t in new object
   std::string printHMS() const; // Print time in HH:MM:SS format ignoring nanoseconds
 private:
   struct timespec t;

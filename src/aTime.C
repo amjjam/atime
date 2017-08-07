@@ -391,6 +391,26 @@ bool aTime::operator<=(const aTime &tt) const{
 
 
 /*==========================================================================
+  aTime operator+(const double t) const - return this + t
+  =========================================================================*/
+aTime aTime::operator+(const double t) const{
+  aTime r;
+  r+=t;
+  return r;
+}
+
+
+/*==========================================================================
+  aTime operator-(const double t) const - return this -t
+  =========================================================================*/
+aTime aTime::operator-(const double t) const{
+  aTime r;
+  r+=t;
+  return r;
+}
+
+
+/*==========================================================================
   std::string printHMS() - return a string with just the time of day
   printed as HH:MM:SS.
   =========================================================================*/
