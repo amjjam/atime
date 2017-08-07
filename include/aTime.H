@@ -39,15 +39,15 @@ public:
   void operator=(double t); // Set equal to this time
   void operator=(const aTime &t); // Set equal to this time
   void operator+=(double t); // Add this many seconds
-  void operator+=(aTime &t); // Add this time time value
+  void operator+=(const aTime &t); // Add this time time value
   void operator-=(double t); // Subtract this many seconds
-  void operator-=(aTime &t); // Subtrct this time value
-  double operator-(aTime &t); // Return this - t as a double
-  bool operator==(aTime &t) const; // Return true if this is same time as t
-  bool operator>(aTime &t) const; // Return true of this is later than t;
-  bool operator>=(aTime &t) const; // Return true if this is later or equal to t
-  bool operator<(aTime &t) const; // Return true if this is earlier than t
-  bool operator<=(aTime &t) const; // Return true if this is earlier or equal to t
+  void operator-=(const aTime &t); // Subtrct this time value
+  double operator-(const aTime &t) const; // Return this - t as a double
+  bool operator==(const aTime &t) const; // Return true if this is same time as t
+  bool operator>(const aTime &t) const; // Return true of this is later than t;
+  bool operator>=(const aTime &t) const; // Return true if this is later or equal to t
+  bool operator<(const aTime &t) const; // Return true if this is earlier than t
+  bool operator<=(const aTime &t) const; // Return true if this is earlier or equal to t
   std::string printHMS() const; // Print time in HH:MM:SS format ignoring nanoseconds
 private:
   struct timespec t;

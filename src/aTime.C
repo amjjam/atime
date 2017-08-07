@@ -288,11 +288,11 @@ void aTime::operator+=(double t){
 
 
 /*=============================================================================
-  void operator+=(aTime &t) - add the time to this time. 
+  void operator+=(const aTime &t) - add the time to this time. 
   
   aTime t - value can only be positive. Negative time not defined. 
   ============================================================================*/
-void aTime::operator+=(aTime &t){
+void aTime::operator+=(const aTime &t){
   set(get()+t.get());
 }
 
@@ -309,11 +309,11 @@ void aTime::operator-=(double t){
 
 
 /*=============================================================================
-  void operator-=(aTime &t) - subtract the time from this time.
+  void operator-=(const aTime &t) - subtract the time from this time.
 
   The time to subtract can only be positive
   ============================================================================*/
-void aTime::operator-=(aTime &t){
+void aTime::operator-=(const aTime &t){
   set(get()-t.get());
 }
 
@@ -322,7 +322,7 @@ void aTime::operator-=(aTime &t){
   double operator-(aTime &t) - subtract the time from this time and
   return the difference as a double
   ============================================================================*/
-double aTime::operator-(aTime &t){
+double aTime::operator-(const aTime &t) const{
   return get()-t.get();
 }
 
@@ -331,7 +331,7 @@ double aTime::operator-(aTime &t){
   bool operator==(aTime &t) - return true if this time equals t. False
   otherwise
   ===========================================================================*/
-bool aTime::operator==(aTime &tt) const{
+bool aTime::operator==(const aTime &tt) const{
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec==tt.t.tv_nsec)
     return true;
   return false;
@@ -339,10 +339,10 @@ bool aTime::operator==(aTime &tt) const{
 
 
 /*===========================================================================
-  bool operator>(aTime &t) - return true if this time is later than
+  bool operator>(const aTime &t) - return true if this time is later than
   t. False otherwise.
   ==========================================================================*/
-bool aTime::operator>(aTime &tt) const{
+bool aTime::operator>(const aTime &tt) const{
   if(t.tv_sec>tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>tt.t.tv_nsec)
@@ -352,10 +352,10 @@ bool aTime::operator>(aTime &tt) const{
 
 
 /*===========================================================================
-  bool operator>=(aTime &t) - return true if this time later than of
+  bool operator>=(const aTime &t) - return true if this time later than of
   equal to t. Return false otherwise.
   ==========================================================================*/
-bool aTime::operator>=(aTime &tt) const{
+bool aTime::operator>=(const aTime &tt) const{
   if(t.tv_sec>tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec>=tt.t.tv_nsec)
@@ -365,10 +365,10 @@ bool aTime::operator>=(aTime &tt) const{
 
 
 /*==========================================================================
-  bool operator<(aTime &t) - return true if this time is earlier than
+  bool operator<(const aTime &t) - return true if this time is earlier than
   t. Return false otherwise.
   =========================================================================*/
-bool aTime::operator<(aTime &tt) const{
+bool aTime::operator<(const aTime &tt) const{
   if(t.tv_sec<tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<tt.t.tv_nsec)
@@ -378,10 +378,10 @@ bool aTime::operator<(aTime &tt) const{
 
 
 /*==========================================================================
-  bool operator<=(aTime &t) - return true if this time is earlier than
+  bool operator<=(const aTime &t) - return true if this time is earlier than
   or same time as t. Return false otherwise.
   =========================================================================*/
-bool aTime::operator<=(aTime &tt) const{
+bool aTime::operator<=(const aTime &tt) const{
   if(t.tv_sec<tt.t.tv_sec)
     return true;
   if(t.tv_sec==tt.t.tv_sec&&t.tv_nsec<=tt.t.tv_nsec)
