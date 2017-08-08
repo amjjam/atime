@@ -51,6 +51,8 @@ public:
   aTime operator+(const double t) const; // Return this + t in new object
   aTime operator-(const double t) const; // Return this - t in new object
   std::string printHMS() const; // Print time in HH:MM:SS format ignoring nanoseconds
+  std::string printYMD() const; // Print YYYY/MM/DD format time
+  std::string printYMDHMS() const; // Print YYYY/MM/DD HH:MM:SS format time ignoring nanoseconds
 private:
   struct timespec t;
 };
