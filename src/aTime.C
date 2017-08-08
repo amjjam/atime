@@ -395,9 +395,7 @@ bool aTime::operator<=(const aTime &tt) const{
   aTime operator+(const double t) const - return this + t
   =========================================================================*/
 aTime aTime::operator+(const double t) const{
-  aTime r;
-  r+=t;
-  return r;
+  return (*this)+t;
 }
 
 
@@ -405,9 +403,7 @@ aTime aTime::operator+(const double t) const{
   aTime operator-(const double t) const - return this -t
   =========================================================================*/
 aTime aTime::operator-(const double t) const{
-  aTime r;
-  r+=t;
-  return r;
+  return (*this)-t;
 }
 
 
