@@ -3,6 +3,7 @@
  ******************************************************************************/
 
 #include "../include/aTime.H"
+#include <stdio.h>
 
 /*=============================================================================
   aTime() - constructor, set to current time
@@ -435,4 +436,28 @@ std::string aTime::printHMS() const{
       t+=':';
   }
   return t;
+}
+
+
+/*==========================================================================
+  std::string printYMD() - return a string with just the date as YYYY/MM/DD
+  =========================================================================*/
+std::string aTime::printYMD() const{
+  int yr,mo,dy;
+  get(yr,mo,dy);
+    
+  char tmp[100];
+
+  sprintf(tmp,"%4i/%02i/%02i",yr,mo,dy);
+
+  return std::string(tmp);
+}
+
+
+/*==========================================================================
+  std::string printYMDHMS() const - print time as YYYY/MM/DD HH:MM:SS
+  ignoring nanoseconds portion.
+  =========================================================================*/
+std::string aTime::printYMDHMS() const{
+  return printYMD()+" "+printHMS();
 }
